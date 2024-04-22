@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "904337431761",
+    "project_id": "pbt-sec",
+    "storage_bucket": "pbt-sec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:904337431761:android:1c18acf334c5ff4940b9f0",
+        "android_client_info": {
+          "package_name": "com.example.battery"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsTkI_PDG2-hS_Uww4PyNHnL9SU_HeiqA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
