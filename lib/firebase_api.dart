@@ -30,13 +30,14 @@ class FirebaseApi {
   }
 
   Future initialLocalNotifications() async {
-    const android = AndroidInitializationSettings('@drawable/ic_launcher');
+    const android = AndroidInitializationSettings('@drawable/food');
     const settings = InitializationSettings(android: android);
     await _localNotifications.initialize(
       settings,
       onSelectNotification: (payload) {
         final message = RemoteMessage.fromMap(jsonDecode(payload!));
         handleBackgroundMessage(message);
+        handleMessage(message);
       },
     );
     final platform = _localNotifications.resolvePlatformSpecificImplementation<
@@ -65,7 +66,7 @@ class FirebaseApi {
               _androidChannel.id,
               _androidChannel.name,
               channelDescription: _androidChannel.description,
-              icon: '@drawable/ic_launcher',
+              icon: '@drawable/food',
             ),
           ),
           payload: jsonEncode(Message.toMap()));
@@ -74,7 +75,7 @@ class FirebaseApi {
 
   Future<void> initNotifications() async {
     await _firebaseMessaging.requestPermission();
-    final FCMToken = await _firebaseMessaging.getToken();
+    // final FCMToken = await _firebaseMessaging.getToken();
     initPushNotification();
     initialLocalNotifications();
   }
