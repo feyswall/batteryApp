@@ -11,7 +11,7 @@
 // class NotificationSetup {
 //   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
-//   Future<void> initializeNitofication() async {
+//   Future<void> initializeNotification() async {
 //     AwesomeNotifications().initialize('resourse://drawable/res_launcher_icon', [
 //       NotificationChannel(
 //         channelKey: 'high_importance_channel',
@@ -30,13 +30,12 @@
 //   }
 
 //   void configurePushNotifications(BuildContext context) async {
-//     initializeNotofication();
-
+//     initializeNotification();
 //     await FirebaseMessaging.instance
 //         .setForegroundNotificationPresentationOptions(
 //       alert: true,
 //       badge: true,
-//       sound: true,
+//       sound: false,
 //     );
 //     FirebaseMessaging.onBackgroundMessage(myBackgroundMessageHandler);
 

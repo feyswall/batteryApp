@@ -1,3 +1,4 @@
+import 'package:batteryi/app/modules/home/views/appDrawer.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -18,9 +19,10 @@ final RegisterController registerController = Get.put(RegisterController());
           'Registration form',
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.red,
+        backgroundColor: const Color.fromARGB(255, 17, 58, 92),
         centerTitle: true,
       ),
+      drawer: AppDrawer(),
       body: Column(
         children: [
           Expanded(
@@ -69,7 +71,7 @@ final RegisterController registerController = Get.put(RegisterController());
                         // You can add more validation rules for email format if needed
                         return null;
                       },
-                      controller: registerController.phoneController,
+                      controller: registerController.emailController,
                     ),
                     const SizedBox(height: 16),
                     TextFormField(

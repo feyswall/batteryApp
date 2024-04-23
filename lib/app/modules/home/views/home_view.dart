@@ -1,3 +1,4 @@
+import 'package:batteryi/firebase_api.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/home_controller.dart';
@@ -20,7 +21,9 @@ class HomeView extends GetView<HomeController> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           print("the text is executed");
-          homeController.getMessageToken();
+            FirebaseApi().callOnFcmApiSendPushNotifications(
+      title: 'feyswal battery', body: 'help me man im aout');
+          // homeController.getMessageToken();
         },
         backgroundColor: Colors.blue[900],
         child: const Icon(

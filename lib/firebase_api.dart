@@ -1,11 +1,10 @@
 import 'dart:convert';
-import 'dart:io';
-
-import 'package:batteryi/app/modules/register/views/register_view.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:batteryi/app/modules/home/controllers/home_controller.dart';
+import 'package:batteryi/app/modules/home/views/home_view.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 
 Future<void> handleBackgroundMessage(RemoteMessage message) async {
   print('title: ${message.notification!.title}');
@@ -13,8 +12,9 @@ Future<void> handleBackgroundMessage(RemoteMessage message) async {
   print('paylaod: ${message.data}');
 }
 
-class FirebaseApi {
+class FirebaseApi extends GetxController {
   final _firebaseMessaging = FirebaseMessaging.instance;
+  HomeController homeController = Get.put(HomeController());
 
   final _androidChannel = const AndroidNotificationChannel(
     'hight_importance_channel',
@@ -26,7 +26,7 @@ class FirebaseApi {
 
   void handleMessage(RemoteMessage? message) {
     if (message == null) return;
-    Get.to(RegisterView());
+    Get.to(() => HomeView());
   }
 
   Future initialLocalNotifications() async {
@@ -75,8 +75,45 @@ class FirebaseApi {
 
   Future<void> initNotifications() async {
     await _firebaseMessaging.requestPermission();
-    // final FCMToken = await _firebaseMessaging.getToken();
     initPushNotification();
     initialLocalNotifications();
+  }
+
+  Future<bool> callOnFcmApiSendPushNotifications(
+      {required String title, required String body}) async {
+    const postUrl = "https://fcm.googleapis.com/fcm/send";
+    final data = {
+      "to":
+          "eJwP29q3TvK1DsdO9-MFVP:APA91bFC76nwBO4r85LxVOk52NsgN1cBoP7sWwsWQulU-L-o5yj8e4GvW61yQQGBdwI_Bshc1Eqx4osHTyVIHeJKJAVsOez6cUreuwIEak5GQ-hbJiNSh6Gb6WzcV9V0YbtE7kBOML-i",
+      "notification": {
+        "title": title,
+        "body": body,
+      },
+      "data": {
+        "type": "Order",
+        "id": "28",
+        "click_action": "FLUTTER_NOTIFICATION_CLICK",
+      }
+    };
+
+    final headers = {
+      "content-type": 'application/json',
+      "Authorization":
+          'key=AAAA0o62HNE:APA91bGBMsQ0rmTgMqZX0pi1U0d1eQ2BY0a0iel9FJS9Xfs5MB_IPds6sd25fLgmZsLeQ2gjNUxgUM317tEBHWcNoUwxyL1yfi0MOhLazEFf0P60GrMvb-mJxcEdHt1YCmUsps-fEN9E'
+    };
+
+    final response = await http.post(Uri.parse(postUrl),
+        body: json.encode(data),
+        encoding: Encoding.getByName('utf-8'),
+        headers: headers);
+
+    if (response.statusCode == 200) {
+      print('test ok push fcm');
+      print('request body ${response.body}');
+      return true;
+    } else {
+      print('FCM ERROR');
+      return false;
+    }
   }
 }

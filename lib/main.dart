@@ -38,6 +38,7 @@ Future<void> main() async {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         appBarTheme: const AppBarTheme(
+          backgroundColor: Color.fromARGB(255, 17, 58, 92),
           iconTheme: IconThemeData(
               color:
                   Colors.white), // Change the color of the back arrow to white

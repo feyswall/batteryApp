@@ -1,3 +1,4 @@
+import 'package:batteryi/app/modules/user/views/ListsWithCards.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -9,15 +10,19 @@ class UserView extends GetView<UserController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        print(UserController().users);
+      }),
       appBar: AppBar(
-        title: const Text('UserView'),
-        centerTitle: true,
-      ),
-      body: const Center(
-        child: Text(
-          'UserView is working',
-          style: TextStyle(fontSize: 20),
+        title: const Text(
+          'Subscribers List',
+          style: TextStyle(color: Colors.white),
         ),
+        centerTitle: true,
+        backgroundColor: const Color.fromARGB(255, 4, 52, 91),
+      ),
+      body: Center(
+        child: ListsWithCards(),
       ),
     );
   }

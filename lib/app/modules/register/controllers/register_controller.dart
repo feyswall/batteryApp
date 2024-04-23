@@ -1,8 +1,11 @@
+import 'package:batteryi/app/modules/login/views/login_view.dart';
+import 'package:batteryi/app/modules/user/controllers/user_controller.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class RegisterController extends GetxController {
- final TextEditingController nameController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -11,20 +14,21 @@ class RegisterController extends GetxController {
 
   final formKey = GlobalKey<FormState>();
 
-  void submitForm() {
+  Future<void> submitForm() async {
     if (formKey!.currentState!.validate()) {
       final String name = nameController.text;
       final String phone = phoneController.text;
       final String email = emailController.text;
       final String password = passwordController.text;
       final String passwordConfirm = passwordConfirmController.text;
-
       // Do something with the form data, e.g., submit to a backend
-      print('Name: $name');
-      print('Email: $email');
-      print('phone: $phone');
-      print('password: $password');
-      print('confirm password: $passwordConfirm');
+      UserController().registerUser({
+        'name': name,
+        'phone': phone,
+        'password': password,
+        'email': email,
+      });
+      Get.to(LoginView());
     }
   }
 }

@@ -4,10 +4,10 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomeController extends GetxController {
+  
   final Battery _battery = Battery();
   FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
   final RxList<String> _messages = <String>[].obs;
-
   var batteryLevel = 0.obs;
   var _lastBatteryLevel = 0.obs;
   final int _batteryThreshold = 20;

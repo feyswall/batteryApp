@@ -1,3 +1,4 @@
+import 'package:batteryi/app/modules/home/views/appDrawer.dart';
 import 'package:batteryi/app/modules/register/views/register_view.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +22,7 @@ class LoginView extends GetView<LoginController> {
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 17, 58, 92),
       ),
+      drawer: AppDrawer(),
       body: Column(
         children: [
           Expanded(
