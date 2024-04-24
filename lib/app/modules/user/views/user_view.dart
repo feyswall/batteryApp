@@ -10,9 +10,6 @@ class UserView extends GetView<UserController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        print(UserController().users);
-      }),
       appBar: AppBar(
         title: const Text(
           'Subscribers List',

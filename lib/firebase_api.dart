@@ -80,11 +80,10 @@ class FirebaseApi extends GetxController {
   }
 
   Future<bool> callOnFcmApiSendPushNotifications(
-      {required String title, required String body}) async {
+      {required String title, required String body, String? token }) async {
     const postUrl = "https://fcm.googleapis.com/fcm/send";
     final data = {
-      "to":
-          "eJwP29q3TvK1DsdO9-MFVP:APA91bFC76nwBO4r85LxVOk52NsgN1cBoP7sWwsWQulU-L-o5yj8e4GvW61yQQGBdwI_Bshc1Eqx4osHTyVIHeJKJAVsOez6cUreuwIEak5GQ-hbJiNSh6Gb6WzcV9V0YbtE7kBOML-i",
+      "to": token,
       "notification": {
         "title": title,
         "body": body,

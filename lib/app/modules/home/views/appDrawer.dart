@@ -13,10 +13,10 @@ class AppDrawer extends StatelessWidget {
         children: <Widget>[
           DrawerHeader(
             decoration: BoxDecoration(
-              color: Colors.blue,
+              color: const Color.fromARGB(255, 4, 52, 91),
             ),
             child: Text(
-              'Drawer Header',
+              'Battery Boot App',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 24,
@@ -24,7 +24,10 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: Text('Subscribers'),
+            title: Text(
+              'Subscribers',
+              style: TextStyle(color: Colors.black),
+            ),
             onTap: () {
               Get.to(UserView());
             },

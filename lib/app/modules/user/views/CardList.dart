@@ -1,5 +1,7 @@
 import 'package:batteryi/app/modules/user/model/UserModel.dart';
+import 'package:batteryi/app/modules/user/views/pages/single_user_view.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CardList extends StatelessWidget {
   final UserModel user;
@@ -19,7 +21,7 @@ class CardList extends StatelessWidget {
         subtitle: Text('${user.phone}'),
         trailing: Icon(Icons.more_vert),
         onTap: () {
-          print("user ${user.name} is being clicked");
+          Get.to(SingleUserView(), arguments: {'fcmToken': user.fcmToken});
         },
       ),
     );

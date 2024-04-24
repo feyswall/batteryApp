@@ -2,20 +2,17 @@ import 'package:batteryi/app/modules/user/model/UserModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
 
 class UserController extends GetxController {
-  RxList<UserModel> users = <UserModel>[].obs;
-
   final _firebaseMessaging = FirebaseMessaging.instance;
   final db = FirebaseFirestore.instance;
 
-  //TODO: Implement UserController
+  RxList<UserModel> users = <UserModel>[].obs;
 
   @override
-  void onInit() async {
+  void onInit() {
     super.onInit();
-    await selectUsers();
+    selectUsers();
   }
 
   Future<void> registerUser(Map<String, dynamic> user) async {
@@ -37,7 +34,7 @@ class UserController extends GetxController {
         );
         list.add(userModel);
       }
+      users.assignAll(list);
     });
-    users.assignAll(list);
   }
 }
