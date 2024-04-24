@@ -22,7 +22,6 @@ final RegisterController registerController = Get.put(RegisterController());
         backgroundColor: const Color.fromARGB(255, 17, 58, 92),
         centerTitle: true,
       ),
-      drawer: AppDrawer(),
       body: Column(
         children: [
           Expanded(

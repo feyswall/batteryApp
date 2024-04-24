@@ -8,10 +8,10 @@ class SingleUserView extends GetView<UserController> {
   @override
   Widget build(BuildContext context) {
     var args = Get.arguments;
-    print(args);
+    print(args['user'].name);
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Single Page',
           style: TextStyle(
             color: Colors.white,
@@ -22,9 +22,9 @@ class SingleUserView extends GetView<UserController> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           FirebaseApi().callOnFcmApiSendPushNotifications(
-            title: 'helpme man',
-            body: 'i want the power',
-            token: 'eJwP29q3TvK1DsdO9-MFVP:APA91bFC76nwBO4r85LxVOk52NsgN1cBoP7sWwsWQulU-L-o5yj8e4GvW61yQQGBdwI_Bshc1Eqx4osHTyVIHeJKJAVsOez6cUreuwIEak5GQ-hbJiNSh6Gb6WzcV9V0YbtE7kBOML-i',
+            title: '${args['user'].name} Power Request',
+            body: 'Open the notification to open the request and view the request',
+            token: args['fcmToken'],
           );
         },
         backgroundColor: const Color.fromARGB(255, 6, 65, 113),

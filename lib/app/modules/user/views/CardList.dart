@@ -21,7 +21,7 @@ class CardList extends StatelessWidget {
         subtitle: Text('${user.phone}'),
         trailing: Icon(Icons.more_vert),
         onTap: () {
-          Get.to(SingleUserView(), arguments: {'fcmToken': user.fcmToken});
+          Get.to(SingleUserView(), arguments: {'fcmToken': user.fcmToken, 'user': user});
         },
       ),
     );

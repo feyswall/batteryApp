@@ -1,3 +1,4 @@
+import 'package:batteryi/app/modules/home/views/appDrawer.dart';
 import 'package:batteryi/firebase_api.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,6 +11,7 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: AppDrawer(),
       appBar: AppBar(
         title: const Text(
           'Home Page View',
@@ -21,8 +23,8 @@ class HomeView extends GetView<HomeController> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           print("the text is executed");
-            FirebaseApi().callOnFcmApiSendPushNotifications(
-      title: 'feyswal battery', body: 'help me man im aout');
+          FirebaseApi().callOnFcmApiSendPushNotifications(
+              title: 'feyswal battery', body: 'help me man im aout');
           // homeController.getMessageToken();
         },
         backgroundColor: Colors.blue[900],

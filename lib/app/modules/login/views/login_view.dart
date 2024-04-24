@@ -22,7 +22,6 @@ class LoginView extends GetView<LoginController> {
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 17, 58, 92),
       ),
-      drawer: AppDrawer(),
       body: Column(
         children: [
           Expanded(
