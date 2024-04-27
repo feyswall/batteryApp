@@ -20,19 +20,19 @@ class HomeView extends GetView<HomeController> {
         backgroundColor: const Color.fromARGB(255, 4, 52, 91),
         centerTitle: true,
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          print("the text is executed");
-          FirebaseApi().callOnFcmApiSendPushNotifications(
-              title: 'feyswal battery', body: 'help me man im aout');
-          // homeController.getMessageToken();
-        },
-        backgroundColor: Colors.blue[900],
-        child: const Icon(
-          Icons.send,
-          color: Colors.white,
-        ),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     print("the text is executed");
+      //     FirebaseApi().callOnFcmApiSendPushNotifications(
+      //         title: 'feyswal battery', body: 'help me man im aout');
+      //     // homeController.getMessageToken();
+      //   },
+      //   backgroundColor: Colors.blue[900],
+      //   child: const Icon(
+      //     Icons.send,
+      //     color: Colors.white,
+      //   ),
+      // ),
       body: Center(
         child: RawMaterialButton(
           onPressed: () {

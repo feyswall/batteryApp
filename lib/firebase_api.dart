@@ -1,20 +1,27 @@
 import 'dart:convert';
+import 'package:batteryi/app/modules/battery/controllers/battery_controller.dart';
+import 'package:batteryi/app/modules/battery/views/powerRequests.dart';
 import 'package:batteryi/app/modules/home/controllers/home_controller.dart';
-import 'package:batteryi/app/modules/home/views/home_view.dart';
+import 'package:batteryi/app/modules/login/controllers/login_controller.dart';
+import 'package:batteryi/app/modules/user/model/UserModel.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 Future<void> handleBackgroundMessage(RemoteMessage message) async {
-  print('title: ${message.notification!.title}');
-  print('body: ${message.notification!.body}');
-  print('paylaod: ${message.data}');
+  // print('title: ${message.notification!.title}');
+  // print('body: ${message.notification!.body}');
+  // print('paylaod: ${message.data}');
+  print('xxxxxxxxxxx background xxxxxxxxxxx');
 }
 
 class FirebaseApi extends GetxController {
   final _firebaseMessaging = FirebaseMessaging.instance;
+  final db = FirebaseFirestore.instance;
   HomeController homeController = Get.put(HomeController());
+  LoginController loginController = Get.put(LoginController());
 
   final _androidChannel = const AndroidNotificationChannel(
     'hight_importance_channel',
@@ -26,7 +33,7 @@ class FirebaseApi extends GetxController {
 
   void handleMessage(RemoteMessage? message) {
     if (message == null) return;
-    Get.to(() => HomeView());
+    Get.to(() => PowerRequests(), arguments: message);
   }
 
   Future initialLocalNotifications() async {
@@ -80,7 +87,13 @@ class FirebaseApi extends GetxController {
   }
 
   Future<bool> callOnFcmApiSendPushNotifications(
-      {required String title, required String body, String? token }) async {
+      {required String title, required String body, String? token}) async {
+    await db.collection('users').doc(token).get().then((snapshots) {
+      var desiredUser =
+          UserModel.fromJson(snapshots.data() as Map<String, dynamic>);
+      loginController.notifyFrom.value = desiredUser;
+      print('${loginController.notifyFrom.value} is our destination');
+    });
     const postUrl = "https://fcm.googleapis.com/fcm/send";
     final data = {
       "to": token,
@@ -92,6 +105,7 @@ class FirebaseApi extends GetxController {
         "type": "Order",
         "id": "28",
         "click_action": "FLUTTER_NOTIFICATION_CLICK",
+        "user": loginController.notifyFrom.value,
       }
     };
 
@@ -107,8 +121,16 @@ class FirebaseApi extends GetxController {
         headers: headers);
 
     if (response.statusCode == 200) {
-      print('test ok push fcm');
-      print('request body ${response.body}');
+      BatteryController batteryController = BatteryController();
+      var notf = {
+        'sender_doc_id': loginController.loggedUser.value.fcmToken,
+        'receiver_doc_id': token,
+        'type': 'battery'
+      };
+      await batteryController.createNotification(notf);
+      print(
+          'ssssssssssssssssssssss sssssssssssssssssssssss sssssssssssssssssssssssss');
+      print(notf);
       return true;
     } else {
       print('FCM ERROR');

@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 class ListsWithCards extends GetView<UserController> {
   ListsWithCards({super.key});
-  UserController userController = Get.put(UserController());
+  UserController userController = Get.find();
 
   @override
   Widget build(BuildContext context) {

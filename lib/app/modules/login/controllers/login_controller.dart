@@ -1,5 +1,7 @@
 import 'package:batteryi/app/modules/home/views/home_view.dart';
 import 'package:batteryi/app/modules/register/views/register_view.dart';
+import 'package:batteryi/app/modules/user/controllers/user_controller.dart';
+import 'package:batteryi/app/modules/user/model/UserModel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -13,13 +15,15 @@ class LoginController extends GetxController {
   final TextEditingController passwordController = TextEditingController();
   final RxList<String> _messages = <String>[].obs;
   bool isAccepted = false;
+  final UserController userController = UserController();
+  RxString varError = ''.obs;
+  Rx<UserModel> loggedUser = UserModel().obs;
+  Rx<UserModel> notifyFrom = UserModel().obs;
 
   final formKey = GlobalKey<FormState>();
 
-  Future<void> notificationPermission() async {
-    
-  }
-  
+  Future<void> notificationPermission() async {}
+
   // It is assumed that all messages contain a data field with the key 'type'
   Future<void> setupInteractedMessage() async {
     // Get any messages which caused the application to open from
@@ -57,11 +61,32 @@ class LoginController extends GetxController {
     setupInteractedMessage();
   }
 
-  void submitLoginForm() {
-    if (formKey!.currentState!.validate()) {
+  Future<Map<String, dynamic>?> submitLoginForm() async {
+    if (formKey.currentState!.validate()) {
       final String email = emailController.text;
       final String password = passwordController.text;
-      Get.to(HomeView());
+      print('For email: $email , for password $password');
+      UserModel? user = await userController.userLogin(email);
+      if (user == null) {
+        return {
+          'status': 'fail',
+          'type': 'email',
+          'messsage': 'user not found'
+        };
+      }
+      if (user.password != password) {
+        return {
+          'status': 'fail',
+          'type': 'password',
+          'messsage': 'password error'
+        };
+      }
+      return {
+        'status': 'success',
+        'messsage': 'login successfully',
+        'user': user
+      };
     }
+    return null;
   }
 }

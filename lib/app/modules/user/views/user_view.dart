@@ -6,9 +6,13 @@ import 'package:get/get.dart';
 import '../controllers/user_controller.dart';
 
 class UserView extends GetView<UserController> {
-  const UserView({Key? key}) : super(key: key);
+  UserView({Key? key}) : super(key: key);
+
+  UserController userController = Get.put(UserController());
+
   @override
   Widget build(BuildContext context) {
+    userController.allUsers();
     return Scaffold(
       appBar: AppBar(
         title: const Text(

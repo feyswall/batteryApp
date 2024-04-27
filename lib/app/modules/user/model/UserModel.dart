@@ -1,10 +1,10 @@
 class UserModel {
   UserModel({
-    required this.name,
-    required this.email,
-    required this.phone,
-    required this.password,
-    required this.fcmToken,
+    this.name = '',
+    this.email = '',
+    this.phone = '',
+    this.password = '',
+    this.fcmToken = '',
   });
 
   String email;
@@ -28,4 +28,9 @@ class UserModel {
         "password": password,
         "fcmToken": fcmToken,
       };
+
+  @override
+  String toString() {
+    return "name: $name, email: $email";
+  }
 }
